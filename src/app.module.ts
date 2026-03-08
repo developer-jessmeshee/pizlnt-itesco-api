@@ -7,6 +7,7 @@ import { CareerModule } from './careers/career.module';
 
 @Module({
   imports: [
+    CareerModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [
@@ -24,7 +25,6 @@ import { CareerModule } from './careers/career.module';
         ConfigService
       ],
     }),
-    CareerModule,
   ],
   controllers: [
     AppController,

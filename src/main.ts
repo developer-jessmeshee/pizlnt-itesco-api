@@ -1,7 +1,8 @@
+import * as dns from 'node:dns';
+import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as dns from 'node:dns';
-import { ValidationPipe } from '@nestjs/common';
 
 dns.setServers([ '1.1.1.1', '8.8.8.8' ]);
 
@@ -18,6 +19,7 @@ async function bootstrap() {
     validationError: { target: false }
   }));
 
+  app.useGlobalFilters( new AllExceptionsFilter() );
 
   await app.listen(process.env.PORT ?? 3000);
 }

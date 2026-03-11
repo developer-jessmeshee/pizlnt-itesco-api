@@ -10,7 +10,7 @@ export class CareerController {
 
     @Post()
     public create( @Body() payload: CreateBaseCatalog ) {
-        return this.service.create( payload ).then( response => response )
+        return this.service.create( payload );
     }
 
 

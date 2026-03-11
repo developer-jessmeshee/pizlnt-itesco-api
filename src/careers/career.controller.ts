@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CareerService } from './career.service';
 import { CreateBaseCatalog } from 'src/dtos/create-base-catalog.dto';
 
@@ -13,5 +13,8 @@ export class CareerController {
         return this.service.create( payload );
     }
 
-
+    @Get()
+    public findAll() {
+        return this.service.findAll();
+    }
 }

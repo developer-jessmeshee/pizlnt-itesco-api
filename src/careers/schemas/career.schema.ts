@@ -12,6 +12,9 @@ export type CareerDocument = Career & Document;
 export class Career {
     @Prop({ required: true })
     name!: string;
+
+    @Prop({ default: true })
+    active!: boolean;
 }
 
 export const CareerSchema = SchemaFactory.createForClass( Career );

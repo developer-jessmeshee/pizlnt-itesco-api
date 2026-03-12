@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Career, CareerDocument } from './schemas/career.schema';
@@ -23,6 +23,24 @@ export class CareerRepository {
     }
 
     public async findAll() {
-        return await this.careerModel.find();
+        return await this.careerModel.find({ active: true });
+    }
+
+    public async updateNameById( id: string, name: string ): Promise<Career> {
+        return await this.updateById( id, { name } );
+    }
+
+    public async deleteById( id: string ): Promise<Career> {
+        return await this.updateById( id, { active: false } );
+    }
+
+    private async updateById( id: string, data: { name?: string, active?: boolean } ): Promise<Career> {
+        const updateCareer = await this.careerModel
+            .findOneAndUpdate( { _id: id, active: true }, data, { new: true } );
+
+        if ( !updateCareer )
+            throw new NotFoundException( `El registro con el ID #${ id } no se encontró.` );
+
+        return updateCareer;
     }
 }

@@ -1,0 +1,17 @@
+import { IsMongoId, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+
+export class UpdateCareerDto {
+    @IsString()
+    @MinLength( 4 )
+    @MaxLength( 100 )
+    @IsNotEmpty()
+    newNameCareer!: string;
+
+    @IsMongoId()
+    @IsNotEmpty()
+    userId!: string;
+
+    @IsMongoId()
+    @IsNotEmpty()
+    careerId!: string;
+}

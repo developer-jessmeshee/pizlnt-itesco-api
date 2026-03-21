@@ -3,11 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CareerModule } from './careers/career.module';
+import { CareerModule } from './modules/careers/career.module';
+import { PositionModule } from './modules/position/position.module';
 
 @Module({
   imports: [
     CareerModule,
+    PositionModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [

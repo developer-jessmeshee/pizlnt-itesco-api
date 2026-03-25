@@ -5,34 +5,28 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CareerModule } from './modules/careers/career.module';
 import { PositionModule } from './modules/position/position.module';
+import { RoleModule } from './modules/roles/role.module';
 
 @Module({
   imports: [
     CareerModule,
     PositionModule,
+    RoleModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
-      imports: [
-        ConfigModule
-      ],
-      useFactory: async ( config: ConfigService ) => ({
-        uri: config.get<string>( 'MONGO_URI' ),
-        maxPoolSize: parseInt( config.get( 'MONGO_MAX_POOL', '100' ) ),
-        minPoolSize: parseInt( config.get( 'MONGO_MIN_POOL', '0' ) ),
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        uri: config.get<string>('MONGO_URI'),
+        maxPoolSize: parseInt(config.get('MONGO_MAX_POOL', '100')),
+        minPoolSize: parseInt(config.get('MONGO_MIN_POOL', '0')),
         serverSelectionTimeoutMS: 5000,
         socketTimeoutMS: 45000,
         autoIndex: config.get('NODE_ENV') !== 'production',
       }),
-      inject: [
-        ConfigService
-      ],
+      inject: [ConfigService],
     }),
   ],
-  controllers: [
-    AppController,
-  ],
-  providers: [
-    AppService,
-  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -6,12 +6,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CareerModule } from './modules/careers/career.module';
 import { PositionModule } from './modules/position/position.module';
 import { RoleModule } from './modules/roles/role.module';
+import { UserModule } from './modules/user/user.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 
 @Module({
   imports: [
     CareerModule,
     PositionModule,
     RoleModule,
+    UserModule,
+    AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -27,6 +33,12 @@ import { RoleModule } from './modules/roles/role.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -27,11 +27,12 @@ export class NoticesService {
       mediaUrl = cloudinaryResponse.secure_url;
     }
 
-    const { userId, ...resData } = createNoticeDto;
+    const { userId, careerId, ...resData } = createNoticeDto;
 
     const data: CreateNoticeData = {
       ...resData,
       user: userId,
+      career: careerId,
       mediaUrl,
     };
 

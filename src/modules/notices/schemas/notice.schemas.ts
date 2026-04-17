@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { Career } from 'src/modules/careers/schemas/career.schema';
 import { User } from 'src/modules/user/schemas/user.schema';
 
 export type NoticeDocument = Notice & Document;
@@ -33,6 +34,9 @@ export class Notice {
 
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   user!: User | Types.ObjectId;
+
+  @Prop({ type: Types.ObjectId, ref: Career.name, required: true })
+  career!: Career | Types.ObjectId;
 }
 
 export const NoticeSchema = SchemaFactory.createForClass(Notice);

@@ -6,4 +6,5 @@ export interface CreateNoticeData {
   fechaExpiracion?: string | Date;
   mediaUrl?: string | null;
   user: string;
+  career: string;
 }

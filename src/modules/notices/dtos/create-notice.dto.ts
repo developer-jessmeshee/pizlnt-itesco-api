@@ -39,4 +39,8 @@ export class CreateNoticeDto {
   @IsMongoId()
   @IsNotEmpty()
   userId!: string;
+
+  @IsMongoId()
+  @IsNotEmpty()
+  careerId!: string;
 }

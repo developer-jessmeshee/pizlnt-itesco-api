@@ -35,8 +35,8 @@ export class Notice {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   user!: User | Types.ObjectId;
 
-  @Prop({ type: Types.ObjectId, ref: Career.name, required: true })
-  career!: Career | Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: Career.name })
+  career?: Career | Types.ObjectId;
 }
 
 export const NoticeSchema = SchemaFactory.createForClass(Notice);

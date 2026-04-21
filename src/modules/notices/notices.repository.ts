@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Notice, NoticeDocument } from './schemas/notice.schemas';
 import { CreateNoticeData } from './interfaces/create-notice-data.interface';
 import { GetNoticesFilterDto } from './dtos/get-notices-filter.dto';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class NoticesRepository {
@@ -32,7 +32,11 @@ export class NoticesRepository {
       $and: [baseQuery, expirationQuery],
     };
 
-    if (careerId) {
+    if (careerId === 'general') {
+      finalQuery.$and.push({
+        $or: [{ career: { $exists: false } }, { career: null }],
+      });
+    } else if (careerId) {
       finalQuery.$and.push({ career: careerId });
     }
 
